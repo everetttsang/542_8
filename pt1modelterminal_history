@@ -1,0 +1,150 @@
+Last login: Sat Oct 24 20:28:18 on ttys001
+Everett@Everetts-MacBook-Air 542_8 % ssh -i "ubun1.pem" ec2-user@ec2-54-153-39-104.us-west-1.compute.amazonaws.com
+The authenticity of host 'ec2-54-153-39-104.us-west-1.compute.amazonaws.com (54.153.39.104)' can't be established.
+ECDSA key fingerprint is SHA256:M/GIo2DM3fa7RDl4N44fkj8rHBmVNCdFuBFEnT2hcTg.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-54-153-39-104.us-west-1.compute.amazonaws.com,54.153.39.104' (ECDSA) to the list of known hosts.
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+2 package(s) needed for security, out of 13 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-9-222 ~]$ sudo yum install -y docker
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package docker.x86_64 0:19.03.6ce-4.amzn2 will be installed
+--> Processing Dependency: runc >= 1.0.0 for package: docker-19.03.6ce-4.amzn2.x86_64
+--> Processing Dependency: containerd >= 1.3.2 for package: docker-19.03.6ce-4.amzn2.x86_64
+--> Processing Dependency: pigz for package: docker-19.03.6ce-4.amzn2.x86_64
+--> Processing Dependency: libcgroup for package: docker-19.03.6ce-4.amzn2.x86_64
+--> Running transaction check
+---> Package containerd.x86_64 0:1.3.2-1.amzn2 will be installed
+---> Package libcgroup.x86_64 0:0.41-21.amzn2 will be installed
+---> Package pigz.x86_64 0:2.3.4-1.amzn2.0.1 will be installed
+---> Package runc.x86_64 0:1.0.0-0.1.20200204.gitdc9208a.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+================================================================================
+ Package    Arch   Version                              Repository         Size
+================================================================================
+Installing:
+ docker     x86_64 19.03.6ce-4.amzn2                    amzn2extra-docker  37 M
+Installing for dependencies:
+ containerd x86_64 1.3.2-1.amzn2                        amzn2extra-docker  24 M
+ libcgroup  x86_64 0.41-21.amzn2                        amzn2-core         66 k
+ pigz       x86_64 2.3.4-1.amzn2.0.1                    amzn2-core         81 k
+ runc       x86_64 1.0.0-0.1.20200204.gitdc9208a.amzn2  amzn2extra-docker 2.6 M
+
+Transaction Summary
+================================================================================
+Install  1 Package (+4 Dependent packages)
+
+Total download size: 65 M
+Installed size: 271 M
+Downloading packages:
+(1/5): libcgroup-0.41-21.amzn2.x86_64.rpm                  |  66 kB   00:00
+(2/5): pigz-2.3.4-1.amzn2.0.1.x86_64.rpm                   |  81 kB   00:00
+(3/5): containerd-1.3.2-1.amzn2.x86_64.rpm                 |  24 MB   00:00
+(4/5): runc-1.0.0-0.1.20200204.gitdc9208a.amzn2.x86_64.rpm | 2.6 MB   00:00
+(5/5): docker-19.03.6ce-4.amzn2.x86_64.rpm                 |  37 MB   00:00
+--------------------------------------------------------------------------------
+Total                                              107 MB/s |  65 MB  00:00
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : runc-1.0.0-0.1.20200204.gitdc9208a.amzn2.x86_64              1/5
+  Installing : containerd-1.3.2-1.amzn2.x86_64                              2/5
+  Installing : libcgroup-0.41-21.amzn2.x86_64                               3/5
+  Installing : pigz-2.3.4-1.amzn2.0.1.x86_64                                4/5
+  Installing : docker-19.03.6ce-4.amzn2.x86_64 [################################################################                     ] 5/5  Installing : docker-19.03.6ce-4.amzn2.x86_64                                                                                        5/5
+  Verifying  : docker-19.03.6ce-4.amzn2.x86_64                                                                                        1/5
+  Verifying  : containerd-1.3.2-1.amzn2.x86_64                                                                                        2/5
+  Verifying  : pigz-2.3.4-1.amzn2.0.1.x86_64                                                                                          3/5
+  Verifying  : runc-1.0.0-0.1.20200204.gitdc9208a.amzn2.x86_64                                                                        4/5
+  Verifying  : libcgroup-0.41-21.amzn2.x86_64                                                                                         5/5
+
+Installed:
+  docker.x86_64 0:19.03.6ce-4.amzn2
+
+Dependency Installed:
+  containerd.x86_64 0:1.3.2-1.amzn2                        libcgroup.x86_64 0:0.41-21.amzn2        pigz.x86_64 0:2.3.4-1.amzn2.0.1
+  runc.x86_64 0:1.0.0-0.1.20200204.gitdc9208a.amzn2
+
+Complete!
+[ec2-user@ip-172-31-9-222 ~]$ sudo service docker start
+Redirecting to /bin/systemctl start docker.service
+[ec2-user@ip-172-31-9-222 ~]$ sudo usermod -a -G docker ec2-user
+[ec2-user@ip-172-31-9-222 ~]$ exit
+logout
+Connection to ec2-54-153-39-104.us-west-1.compute.amazonaws.com closed.
+Everett@Everetts-MacBook-Air 542_8 % ssh -i ubun1.pem ec2-user@ec2-54-153-39-104.us-west-1.compute.amazonaws.com -L 8888:127.0.0.1:8888
+Last login: Sun Oct 25 03:28:45 2020 from c-73-70-1-123.hsd1.ca.comcast.net
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+2 package(s) needed for security, out of 13 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-9-222 ~]$ ls
+[ec2-user@ip-172-31-9-222 ~]$ docker run -v ~/work:/home/jovyan/work -d -p 8888:8888 jupyter/pyspark-notebook
+Unable to find image 'jupyter/pyspark-notebook:latest' locally
+latest: Pulling from jupyter/pyspark-notebook
+d72e567cc804: Pull complete
+0f3630e5ff08: Pull complete
+b6a83d81d1f4: Pull complete
+870a452ba4f9: Pull complete
+fe9e22d913dc: Pull complete
+160a929bde39: Pull complete
+987de28dd41f: Pull complete
+659e54e3cc15: Pull complete
+9f11d3910b24: Pull complete
+97a46e14dd8d: Pull complete
+423d4e0230e9: Pull complete
+6ef987bdec72: Pull complete
+b21da5c2f4ac: Pull complete
+bd93cbd65faa: Pull complete
+f85ab974171f: Pull complete
+ca159625eea7: Pull complete
+3b5511e75529: Pull complete
+0af88396eaf3: Pull complete
+090fae26b8b7: Pull complete
+9bbe67e78e74: Pull complete
+0a48d57852b4: Pull complete
+9bb36c25d388: Pull complete
+b7724a84eada: Pull complete
+afa203c6213a: Pull complete
+b87d5a4dc317: Pull complete
+Digest: sha256:fcd7a92675068851d4d0f1b3b56f1461a97f54e2677fdb676e05459a9ec5fc2b
+Status: Downloaded newer image for jupyter/pyspark-notebook:latest
+5aa8e558b1c75699c1e61a5c27612e0dd854fe9ded3a6e040164e2ffa8a9359d
+[ec2-user@ip-172-31-9-222 ~]$ sudo chown 1000 ~/work
+[ec2-user@ip-172-31-9-222 ~]$ docker ps
+CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS              PORTS                    NAMES
+5aa8e558b1c7        jupyter/pyspark-notebook   "tini -g -- start-no…"   32 seconds ago      Up 30 seconds       0.0.0.0:8888->8888/tcp   friendly_gagarin
+[ec2-user@ip-172-31-9-222 ~]$ docker logs friendly_gagarin
+Executing the command: jupyter notebook
+[I 03:31:33.896 NotebookApp] Writing notebook server cookie secret to /home/jovyan/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 03:31:34.710 NotebookApp] JupyterLab extension loaded from /opt/conda/lib/python3.8/site-packages/jupyterlab
+[I 03:31:34.710 NotebookApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 03:31:34.713 NotebookApp] Serving notebooks from local directory: /home/jovyan
+[I 03:31:34.713 NotebookApp] Jupyter Notebook 6.1.4 is running at:
+[I 03:31:34.713 NotebookApp] http://5aa8e558b1c7:8888/?token=cdeae03fa1d17f503abfab2364fca2c392abc3289c5e0ab1
+[I 03:31:34.713 NotebookApp]  or http://127.0.0.1:8888/?token=cdeae03fa1d17f503abfab2364fca2c392abc3289c5e0ab1
+[I 03:31:34.713 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 03:31:34.716 NotebookApp]
+
+    To access the notebook, open this file in a browser:
+        file:///home/jovyan/.local/share/jupyter/runtime/nbserver-7-open.html
+    Or copy and paste one of these URLs:
+        http://5aa8e558b1c7:8888/?token=cdeae03fa1d17f503abfab2364fca2c392abc3289c5e0ab1
+     or http://127.0.0.1:8888/?token=cdeae03fa1d17f503abfab2364fca2c392abc3289c5e0ab1
+[ec2-user@ip-172-31-9-222 ~]$
